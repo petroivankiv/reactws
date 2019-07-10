@@ -30,6 +30,29 @@ const chat = io
         , '/chat': 'will get'
       });
     });
+
+    // @todo implement nickname
+    // socket.on('login', function (username) {
+    //   socket.set('username', username, err => {
+    //     if (err) { throw err; }
+
+    //     socket.emit('chat message', 'Currently logged in as: ' + username, {
+    //       that: 'only'
+    //       , '/chat': 'will get'
+    //     });
+
+    //     chat.emit('chat message', 'User: ' + username + ' logged in', {
+    //       everyone: 'in'
+    //       , '/chat': 'will get'
+    //     });
+
+    //   });
+    // });
+
+    // socket.emit('login', {
+    //   that: 'only'
+    //   , '/chat': 'will get'
+    // });
   });
 
 http.listen(4000, function () {

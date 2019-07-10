@@ -22,11 +22,16 @@ class Chat extends Component {
     componentDidMount() {
         const socket = socketIOClient(ioConfig.chatUrl);
         socket.on("chat message", message => this.props.receiveMessage(message));
-      }
+        // @todo implement nickname
+        // socket.on("login", () => {
+        //   const username = prompt('Chose your name');
+        //   socket.emit('login', username);
+        // });
+    }
 
     render() {
         const messages = get("messages", this.props, []);
-        
+
         return (
             <div>
                 <ul id="msg">
