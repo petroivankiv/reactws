@@ -1,15 +1,10 @@
 export const ChatActionTypes = {
-    REQUEST: "REQUEST",
     ADDED: "ADDED",
     DELETED: 'DELETED',
     RECEIVE: 'RECEIVE',
     EDITED: 'EDITED'
   };
   
-  export const requestMessage = message => ({
-    type: ChatActionTypes.REQUEST,
-    message
-  });
   export const receiveMessages = messages => ({
     type: ChatActionTypes.RECEIVE,
     messages

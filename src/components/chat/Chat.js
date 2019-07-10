@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { addMessage } from "./thunks";
+import { addedMessage } from "./actions";
 import { get } from "lodash/fp";
+import socketIOClient from "socket.io-client";
+import { ioConfig } from '../../config/io-config';
+
 
 import './Chat.scss';
 
@@ -12,12 +16,17 @@ class Chat extends Component {
 
     addMessage = () => {
         this.setState({ value: '' })
-        this.props.addMessage('I said: ' + this.state.value);
+        this.props.addMessage(this.state.value);
     };
+
+    componentDidMount() {
+        const socket = socketIOClient(ioConfig.chatUrl);
+        socket.on("chat message", message => this.props.receiveMessage(message));
+      }
 
     render() {
         const messages = get("messages", this.props, []);
-        console.log(messages);
+        
         return (
             <div>
                 <ul id="msg">
@@ -39,6 +48,7 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
+    receiveMessage: message => dispatch(addedMessage(message)),
 });
 
 export default connect(

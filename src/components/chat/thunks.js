@@ -1,4 +1,6 @@
 import { addedMessage } from "./actions";
+import socket from "socket.io-client";
+import { ioConfig } from '../../config/io-config';
 
 export function addMessage(message) {
   // Thunk middleware knows how to handle functions.
@@ -11,16 +13,7 @@ export function addMessage(message) {
 
     dispatch(addedMessage(message))
 
-    // The function called by the thunk middleware can return a value,
-    // that is passed on as the return value of the dispatch method.
-
-    // In this case, we return a promise to wait for.
-    // This is not required by thunk middleware, but it is convenient for us.
-    // const createdBy = localStorage.getItem('userId') || 'none';
-
-    // return api
-    //   .post(articleUrl, {...article, topic, createdBy})
-    //   .subscribe(data => dispatch(addedMessage(data)), handleError);
+    socket(ioConfig.chatUrl).emit('chat message', message);
   };
 }
 
